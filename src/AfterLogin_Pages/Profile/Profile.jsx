@@ -9,20 +9,22 @@ import Form_input from "../../Helper/Form_Input";
 import FilterableSelect from "../../Helper/FilterableSelect";
 import Show_Listing from "./Show_Listing/Show_Listing";
 import { showToast } from "../../Helper/toastService";
-
+import {Button} from "react-bootstrap"
+import Familymamberlist from "./Show_Listing/Familymamberlist/Familymamberlist";
 function Profile() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(true);
   const [cityOptions, setCityOptions] = useState([]);
+  const [showFamilyModal, setShowFamilyModal] = useState(false);
 
   const { auth } = useLogin();
   const { partnerAuth } = usePartnerLogin();
   const username = auth?.username || partnerAuth?.partnerUsername;
   const token = auth?.accessToken || partnerAuth?.partnerAccess;
   
-  const [formData, setFormData] = useState({
+  const [formData , setFormData] = useState({
     id: null,
     Bio: "",
     Facebook: "",
@@ -433,7 +435,7 @@ function Profile() {
                 </div>
 
                 
-                <div className="d-flex justify-content-end mt-3 align-items-center mb-4">
+                <div className="d-flex justify-content-end mt-3 align-items-center mb-4 gap-3">
                   {/* <h3 className="text-danger fw-bold">Profile</h3> */}
                   {isEditing ? (
                     <button
@@ -460,7 +462,11 @@ function Profile() {
                       </button>
                     </div>
                   )}
-                </div>
+                   <button  className="btn btn-success" onClick={() => setShowFamilyModal(true)}>
+                            Add Family Member
+                          </button>
+                </div> 
+                <Familymamberlist userId={formData.id}  showFamilyModal={showFamilyModal} setShowFamilyModal={setShowFamilyModal}/>
               </div>
             </div>
           </div>

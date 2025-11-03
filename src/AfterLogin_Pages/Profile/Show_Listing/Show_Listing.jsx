@@ -229,61 +229,63 @@ setResetLoadingId(partnerid);
       button: true,
     },
 
-    {
-      name: "Reset",
-      cell: (row) => (
-        <div className="d-flex flex-wrap gap-2 align-items-center">
-          {partnerAuth?.userType === "IH" &&
-            (partnerAuth?.code === "AD" || partnerAuth?.code === "SE") && (
-              <>
-                <button
-  className="btn btn-sm btn-warning d-flex align-items-center gap-1"
-  title="Reset Password"
-  onClick={() => handleResetPassword(row.PartnerMaster_id)}
-  disabled={resetLoadingId === row.PartnerMaster_id}
-  style={{
-    fontSize: "13px",
-    padding: "4px 8px",
-    whiteSpace: "nowrap",
-    opacity: resetLoadingId === row.PartnerMaster_id ? 0.7 : 1,
-    cursor: resetLoadingId === row.PartnerMaster_id ? "not-allowed" : "pointer",
-  }}
->
-  {resetLoadingId === row.PartnerMaster_id ? (
-    <>
-      <div
-        className="spinner-border spinner-border-sm text-dark"
-        role="status"
-        style={{ width: "14px", height: "14px" }}
-      ></div>
-      <span>Resetting...</span>
-    </>
-  ) : (
-    <>
-      <FaKey size={12} /> Reset Password
-    </>
-  )}
-</button>
+   ...(partnerAuth?.userType === "IH" &&
+  (partnerAuth?.code === "AD" || partnerAuth?.code === "SE")
+    ? [
+        {
+          name: "Reset",
+          cell: (row) => (
+            <div className="d-flex flex-wrap gap-2 align-items-center">
+              <button
+                className="btn btn-sm btn-warning d-flex align-items-center gap-1"
+                title="Reset Password"
+                onClick={() => handleResetPassword(row.PartnerMaster_id)}
+                disabled={resetLoadingId === row.PartnerMaster_id}
+                style={{
+                  fontSize: "13px",
+                  padding: "4px 8px",
+                  whiteSpace: "nowrap",
+                  opacity:
+                    resetLoadingId === row.PartnerMaster_id ? 0.7 : 1,
+                  cursor:
+                    resetLoadingId === row.PartnerMaster_id
+                      ? "not-allowed"
+                      : "pointer",
+                }}
+              >
+                {resetLoadingId === row.PartnerMaster_id ? (
+                  <>
+                    <div
+                      className="spinner-border spinner-border-sm text-dark"
+                      role="status"
+                      style={{ width: "14px", height: "14px" }}
+                    ></div>
+                    <span>Resetting...</span>
+                  </>
+                ) : (
+                  <>
+                    <FaKey size={12} /> Reset Password
+                  </>
+                )}
+              </button>
 
-
-
-                <button
-                  className="btn btn-sm btn-danger d-flex align-items-center gap-1"
-                  title="Reset User"
-                  onClick={() => handleResetUser(row.PartnerMaster_id)}
-                  style={{
-                    fontSize: "13px",
-                    padding: "4px 8px",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  <FaUserSlash size={12} /> Reset User
-                </button>
-              </>
-            )}
-        </div>
-      ),
-    },
+              <button
+                className="btn btn-sm btn-danger d-flex align-items-center gap-1"
+                title="Reset User"
+                onClick={() => handleResetUser(row.PartnerMaster_id)}
+                style={{
+                  fontSize: "13px",
+                  padding: "4px 8px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                <FaUserSlash size={12} /> Reset User
+              </button>
+            </div>
+          ),
+        },
+      ]
+    : []),
 
     {
       name: "Status",
